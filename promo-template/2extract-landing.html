@@ -1,0 +1,856 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2extract Landing Mockup</title>
+  <style>
+    :root {
+      --ink: #071012;
+      --graphite: #101819;
+      --panel: #152123;
+      --line: rgba(255,255,255,.12);
+      --soft-line: rgba(7,16,18,.12);
+      --paper: #f5f8f4;
+      --paper-2: #e9eee8;
+      --cyan: #21d6d0;
+      --lime: #a6ef67;
+      --amber: #ffb84d;
+      --coral: #ff6b5c;
+      --muted: #6d7a79;
+      --white: #ffffff;
+      --shadow: 0 24px 70px rgba(7,16,18,.18);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: var(--paper);
+      letter-spacing: 0;
+    }
+    a { color: inherit; text-decoration: none; }
+    button, input { font: inherit; }
+
+    .site-header {
+      position: fixed;
+      z-index: 20;
+      top: 0;
+      left: 0;
+      right: 0;
+      border-bottom: 1px solid rgba(255,255,255,.1);
+      background: rgba(7,16,18,.72);
+      backdrop-filter: blur(18px);
+    }
+    .nav {
+      width: min(1180px, calc(100% - 32px));
+      height: 72px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      color: var(--white);
+    }
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 760;
+      font-size: 20px;
+    }
+    .brand-mark {
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      color: var(--ink);
+      background: linear-gradient(135deg, var(--cyan), var(--lime));
+      font-weight: 900;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      color: rgba(255,255,255,.78);
+      font-size: 14px;
+    }
+    .nav-actions { display: flex; align-items: center; gap: 10px; }
+    .btn {
+      min-height: 44px;
+      padding: 0 18px;
+      border: 1px solid transparent;
+      border-radius: 8px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      cursor: pointer;
+      font-weight: 740;
+      white-space: nowrap;
+    }
+    .btn-primary {
+      background: var(--lime);
+      color: #071012;
+      box-shadow: 0 16px 34px rgba(166,239,103,.24);
+    }
+    .btn-dark { background: var(--ink); color: var(--white); }
+    .btn-ghost {
+      color: rgba(255,255,255,.82);
+      border-color: rgba(255,255,255,.18);
+      background: rgba(255,255,255,.04);
+    }
+    .btn-light {
+      color: var(--ink);
+      border-color: var(--soft-line);
+      background: rgba(255,255,255,.72);
+    }
+
+    .hero {
+      position: relative;
+      min-height: 86vh;
+      padding: 120px 0 72px;
+      color: var(--white);
+      overflow: hidden;
+      background:
+        linear-gradient(90deg, rgba(7,16,18,.96) 0%, rgba(7,16,18,.86) 34%, rgba(7,16,18,.34) 74%, rgba(7,16,18,.75) 100%),
+        url("2extract-hero.png") center right / cover no-repeat,
+        var(--ink);
+    }
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0 0;
+      height: 150px;
+      background: linear-gradient(180deg, rgba(7,16,18,0), var(--paper));
+      pointer-events: none;
+    }
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+      display: grid;
+      align-items: end;
+      min-height: calc(86vh - 192px);
+    }
+    .hero-copy { max-width: 690px; padding-bottom: 44px; }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 22px;
+      color: rgba(255,255,255,.82);
+      font-size: 13px;
+      font-weight: 760;
+      text-transform: uppercase;
+    }
+    .pulse {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--lime);
+      box-shadow: 0 0 0 6px rgba(166,239,103,.14);
+    }
+    h1 {
+      margin: 0;
+      max-width: 780px;
+      font-size: clamp(48px, 7vw, 96px);
+      line-height: .95;
+      font-weight: 860;
+      letter-spacing: 0;
+    }
+    .hero-copy p {
+      max-width: 610px;
+      margin: 24px 0 0;
+      color: rgba(255,255,255,.76);
+      font-size: clamp(18px, 2vw, 22px);
+      line-height: 1.55;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 34px;
+    }
+    .hero-metrics {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 1px;
+      margin-top: 48px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.1);
+      max-width: 860px;
+    }
+    .metric {
+      min-height: 94px;
+      padding: 20px;
+      background: rgba(7,16,18,.58);
+    }
+    .metric strong { display: block; font-size: 28px; color: var(--white); }
+    .metric span { display: block; margin-top: 6px; color: rgba(255,255,255,.66); font-size: 13px; }
+
+    section { padding: 84px 0; }
+    .wrap { width: min(1180px, calc(100% - 32px)); margin: 0 auto; }
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 32px;
+      margin-bottom: 34px;
+    }
+    .section-head h2 {
+      max-width: 660px;
+      margin: 0;
+      font-size: clamp(34px, 5vw, 60px);
+      line-height: 1;
+      letter-spacing: 0;
+    }
+    .section-head p {
+      max-width: 430px;
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.65;
+      font-size: 16px;
+    }
+
+    .logo-strip {
+      padding: 26px 0;
+      background: var(--paper);
+      border-bottom: 1px solid var(--soft-line);
+    }
+    .logo-row {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 12px;
+      color: #798280;
+      font-weight: 760;
+      font-size: 13px;
+      text-transform: uppercase;
+    }
+    .logo-row span {
+      min-height: 42px;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--soft-line);
+      background: rgba(255,255,255,.45);
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+    .product-card {
+      min-height: 340px;
+      padding: 28px;
+      border: 1px solid var(--soft-line);
+      border-radius: 8px;
+      background: var(--white);
+      box-shadow: 0 18px 44px rgba(7,16,18,.06);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .product-card.featured {
+      background: var(--graphite);
+      color: var(--white);
+      border-color: rgba(255,255,255,.14);
+      box-shadow: var(--shadow);
+    }
+    .tag {
+      width: fit-content;
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: rgba(33,214,208,.12);
+      color: #08716d;
+      font-size: 12px;
+      font-weight: 760;
+    }
+    .featured .tag { background: rgba(166,239,103,.15); color: var(--lime); }
+    .product-card h3 { margin: 22px 0 10px; font-size: 26px; }
+    .product-card p { margin: 0; color: var(--muted); line-height: 1.6; }
+    .featured p { color: rgba(255,255,255,.68); }
+    .bullets { display: grid; gap: 10px; margin-top: 28px; color: inherit; }
+    .bullets span {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+    }
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--cyan);
+      flex: 0 0 auto;
+    }
+    .featured .dot { background: var(--lime); }
+
+    .dark-band {
+      background: var(--graphite);
+      color: var(--white);
+      border-top: 1px solid rgba(255,255,255,.1);
+      border-bottom: 1px solid rgba(255,255,255,.1);
+    }
+    .dark-band .section-head p { color: rgba(255,255,255,.62); }
+    .flow {
+      display: grid;
+      grid-template-columns: .86fr 1.14fr;
+      gap: 18px;
+      align-items: stretch;
+    }
+    .steps {
+      display: grid;
+      gap: 14px;
+    }
+    .step {
+      padding: 22px;
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 8px;
+      background: rgba(255,255,255,.05);
+      display: grid;
+      grid-template-columns: 42px 1fr;
+      gap: 16px;
+      align-items: start;
+    }
+    .step b {
+      width: 42px;
+      height: 42px;
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      background: var(--cyan);
+      color: var(--ink);
+    }
+    .step h3 { margin: 0 0 7px; font-size: 18px; }
+    .step p { margin: 0; color: rgba(255,255,255,.64); line-height: 1.55; }
+    .code-window {
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,.14);
+      overflow: hidden;
+      background: #071012;
+      box-shadow: 0 24px 60px rgba(0,0,0,.28);
+      min-height: 100%;
+    }
+    .code-bar {
+      height: 44px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0 14px;
+      border-bottom: 1px solid rgba(255,255,255,.1);
+      background: rgba(255,255,255,.04);
+    }
+    .light { width: 10px; height: 10px; border-radius: 50%; background: var(--coral); }
+    .light:nth-child(2) { background: var(--amber); }
+    .light:nth-child(3) { background: var(--lime); }
+    pre {
+      margin: 0;
+      padding: 26px;
+      min-height: 360px;
+      color: #d9fffb;
+      overflow: auto;
+      font: 14px/1.75 "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+    }
+    .token { color: var(--lime); }
+    .comment { color: #71807e; }
+    .string { color: #ffcf7a; }
+
+    .use-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+    }
+    .use-card {
+      min-height: 220px;
+      padding: 24px;
+      border: 1px solid var(--soft-line);
+      border-radius: 8px;
+      background: rgba(255,255,255,.62);
+    }
+    .use-card .icon {
+      width: 44px;
+      height: 44px;
+      display: grid;
+      place-items: center;
+      border-radius: 8px;
+      background: var(--ink);
+      color: var(--white);
+      font-weight: 840;
+    }
+    .use-card h3 { margin: 22px 0 10px; font-size: 19px; }
+    .use-card p { margin: 0; color: var(--muted); line-height: 1.55; font-size: 14px; }
+
+    .pricing {
+      background: var(--paper-2);
+    }
+    .price-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+      align-items: stretch;
+    }
+    .price-card {
+      padding: 28px;
+      border-radius: 8px;
+      border: 1px solid var(--soft-line);
+      background: var(--white);
+      display: flex;
+      flex-direction: column;
+      min-height: 430px;
+    }
+    .price-card.focus {
+      border-color: rgba(7,16,18,.32);
+      box-shadow: var(--shadow);
+    }
+    .price-card h3 { margin: 0 0 12px; font-size: 24px; }
+    .price {
+      margin: 18px 0 8px;
+      font-size: 48px;
+      line-height: 1;
+      font-weight: 860;
+    }
+    .price small { font-size: 16px; color: var(--muted); font-weight: 680; }
+    .price-card p { margin: 0; color: var(--muted); line-height: 1.55; }
+    .price-card .bullets { margin-bottom: 28px; }
+    .price-card .btn { margin-top: auto; width: 100%; }
+
+    .coverage {
+      display: grid;
+      grid-template-columns: .9fr 1.1fr;
+      gap: 30px;
+      align-items: center;
+    }
+    .map {
+      position: relative;
+      min-height: 410px;
+      border-radius: 8px;
+      background:
+        linear-gradient(135deg, rgba(33,214,208,.13), rgba(166,239,103,.14)),
+        #ffffff;
+      border: 1px solid var(--soft-line);
+      overflow: hidden;
+    }
+    .map::before {
+      content: "";
+      position: absolute;
+      inset: 38px;
+      background-image:
+        linear-gradient(rgba(7,16,18,.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(7,16,18,.08) 1px, transparent 1px);
+      background-size: 42px 42px;
+    }
+    .pin {
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--coral);
+      box-shadow: 0 0 0 9px rgba(255,107,92,.13);
+    }
+    .pin:nth-child(1) { left: 21%; top: 36%; }
+    .pin:nth-child(2) { left: 45%; top: 30%; background: var(--cyan); box-shadow: 0 0 0 9px rgba(33,214,208,.14); }
+    .pin:nth-child(3) { left: 62%; top: 48%; background: var(--lime); box-shadow: 0 0 0 9px rgba(166,239,103,.18); }
+    .pin:nth-child(4) { left: 74%; top: 28%; background: var(--amber); box-shadow: 0 0 0 9px rgba(255,184,77,.16); }
+    .country-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+    .country-list span {
+      padding: 14px 16px;
+      border: 1px solid var(--soft-line);
+      border-radius: 8px;
+      background: rgba(255,255,255,.7);
+      font-weight: 720;
+    }
+
+    .faq-list {
+      display: grid;
+      gap: 10px;
+    }
+    details {
+      border: 1px solid var(--soft-line);
+      border-radius: 8px;
+      background: var(--white);
+      overflow: hidden;
+    }
+    summary {
+      padding: 20px 22px;
+      cursor: pointer;
+      font-weight: 780;
+      list-style: none;
+    }
+    summary::-webkit-details-marker { display: none; }
+    details p {
+      margin: 0;
+      padding: 0 22px 22px;
+      color: var(--muted);
+      line-height: 1.6;
+      max-width: 780px;
+    }
+
+    .final-cta {
+      padding: 72px 0;
+      color: var(--white);
+      background:
+        linear-gradient(100deg, rgba(7,16,18,.96), rgba(16,24,25,.86)),
+        var(--graphite);
+    }
+    .cta-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 28px;
+    }
+    .cta-row h2 {
+      margin: 0;
+      max-width: 700px;
+      font-size: clamp(34px, 5vw, 58px);
+      line-height: 1;
+    }
+    .cta-row p { margin: 16px 0 0; color: rgba(255,255,255,.66); max-width: 560px; line-height: 1.6; }
+    footer {
+      padding: 34px 0;
+      color: #7a8584;
+      background: #071012;
+      font-size: 14px;
+    }
+    .footer-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+    .footer-row nav { display: flex; gap: 18px; flex-wrap: wrap; }
+
+    @media (max-width: 920px) {
+      .nav-links { display: none; }
+      .hero { min-height: 820px; padding-top: 100px; padding-bottom: 42px; background-position: 58% center; }
+      .hero-inner { min-height: auto; }
+      .hero-copy { padding-bottom: 20px; }
+      .product-grid, .price-grid, .use-grid, .flow, .coverage {
+        grid-template-columns: 1fr;
+      }
+      .hero-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: 30px; }
+      .logo-row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .section-head, .cta-row { align-items: start; flex-direction: column; }
+      .use-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .country-list { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 560px) {
+      .nav { height: 64px; }
+      .nav-actions .btn-ghost { display: none; }
+      .btn { width: 100%; }
+      .nav-actions .btn { width: auto; min-height: 40px; padding: 0 13px; }
+      .hero-actions { flex-direction: column; }
+      .metric { min-height: 76px; padding: 16px; }
+      .metric strong { font-size: 24px; }
+      section { padding: 62px 0; }
+      .use-grid { grid-template-columns: 1fr; }
+      pre { font-size: 12px; padding: 18px; min-height: 300px; }
+      .footer-row { align-items: start; flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="nav">
+      <a class="brand" href="#top" aria-label="2extract home">
+        <span class="brand-mark">2</span>
+        <span>2extract</span>
+      </a>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="#products">Products</a>
+        <a href="#developers">Developers</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#coverage">Coverage</a>
+      </nav>
+      <div class="nav-actions">
+        <a class="btn btn-ghost" href="#contact">Talk to sales</a>
+        <a class="btn btn-primary" href="#pricing">Start now</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="hero-inner">
+        <div class="hero-copy">
+          <div class="eyebrow"><span class="pulse"></span> Premium residential and datacenter proxies</div>
+          <h1>Reliable proxies for any scale.</h1>
+          <p>2extract gives teams clean residential IPs, fast datacenter proxies, smart rotation, sticky sessions, and geo-targeting from one simple proxy control panel.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#pricing">View plans</a>
+            <a class="btn btn-ghost" href="#developers">See integration</a>
+          </div>
+          <div class="hero-metrics" aria-label="Network metrics">
+            <div class="metric"><strong>99.9%</strong><span>target uptime</span></div>
+            <div class="metric"><strong>195+</strong><span>locations</span></div>
+            <div class="metric"><strong>&lt;1s</strong><span>median connect</span></div>
+            <div class="metric"><strong>24/7</strong><span>ops coverage</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="logo-strip" aria-label="Use cases">
+      <div class="logo-row">
+        <span>Residential IPs</span>
+        <span>Datacenter IPs</span>
+        <span>Rotating Sessions</span>
+        <span>Geo Targeting</span>
+        <span>Sticky Proxies</span>
+      </div>
+    </div>
+
+    <section id="products">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Proxy products for different traffic patterns.</h2>
+          <p>The offer is proxy-first: choose residential, datacenter, or managed rotation, then control location, session length, concurrency, and bandwidth.</p>
+        </div>
+        <div class="product-grid">
+          <article class="product-card featured">
+            <div>
+              <span class="tag">Most flexible</span>
+              <h3>Residential Proxies</h3>
+              <p>Rotate through consent-based residential IPs for high-trust collection across retail, search, and social surfaces.</p>
+              <div class="bullets">
+                <span><i class="dot"></i>City and country targeting</span>
+                <span><i class="dot"></i>Sticky and rotating sessions</span>
+                <span><i class="dot"></i>Built-in spend protection</span>
+              </div>
+            </div>
+            <a class="btn btn-primary" href="#pricing">Explore residential</a>
+          </article>
+          <article class="product-card">
+            <div>
+              <span class="tag">Fastest</span>
+              <h3>Datacenter Proxies</h3>
+              <p>High-throughput static IP pools for predictable, low-latency jobs where speed matters more than residential context.</p>
+              <div class="bullets">
+                <span><i class="dot"></i>Dedicated subnet options</span>
+                <span><i class="dot"></i>Unlimited concurrent threads</span>
+                <span><i class="dot"></i>API-based provisioning</span>
+              </div>
+            </div>
+            <a class="btn btn-light" href="#pricing">Compare plans</a>
+          </article>
+          <article class="product-card">
+            <div>
+              <span class="tag">Managed</span>
+              <h3>Rotating Proxy Gateway</h3>
+              <p>Use one gateway endpoint to rotate IPs automatically, keep sessions sticky, and apply location rules without managing proxy lists.</p>
+              <div class="bullets">
+                <span><i class="dot"></i>Auto IP rotation rules</span>
+                <span><i class="dot"></i>Sticky session controls</span>
+                <span><i class="dot"></i>Single proxy hostname</span>
+              </div>
+            </div>
+            <a class="btn btn-light" href="#developers">View endpoint</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="dark-band" id="developers">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Connect your proxy endpoint in minutes.</h2>
+          <p>A developer-first section keeps the page practical: show the proxy hostname, explain authentication, and make rotation settings easy to understand.</p>
+        </div>
+        <div class="flow">
+          <div class="steps">
+            <article class="step">
+              <b>1</b>
+              <div>
+                <h3>Create an access token</h3>
+                <p>Generate proxy username and password credentials for a project, team, or workload from the 2extract dashboard.</p>
+              </div>
+            </article>
+            <article class="step">
+              <b>2</b>
+              <div>
+                <h3>Choose location and session mode</h3>
+                <p>Pick country, city, ASN, rotation interval, sticky duration, and protocol before traffic leaves your stack.</p>
+              </div>
+            </article>
+            <article class="step">
+              <b>3</b>
+              <div>
+                <h3>Monitor bandwidth and uptime</h3>
+                <p>Track traffic, active sessions, latency, and proxy availability with alerts that protect budgets and uptime.</p>
+              </div>
+            </article>
+          </div>
+          <div class="code-window" aria-label="Code sample">
+            <div class="code-bar"><span class="light"></span><span class="light"></span><span class="light"></span></div>
+            <pre><code><span class="comment"># Residential proxy connection</span>
+export <span class="token">PROXY_USER</span>=<span class="string">"customer-zone-residential-country-us"</span>
+export <span class="token">PROXY_PASS</span>=<span class="string">"$2EXTRACT_PASSWORD"</span>
+
+curl <span class="string">"https://ipinfo.io/json"</span> \
+  --proxy <span class="string">"http://$PROXY_USER:$PROXY_PASS@gateway.2extract.com:8000"</span>
+
+<span class="comment"># Sticky session example</span>
+curl <span class="string">"https://ipinfo.io/json"</span> \
+  --proxy <span class="string">"http://customer-session-15m-country-de:$PROXY_PASS@gateway.2extract.com:8000"</span></code></pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Clear reasons to choose 2extract proxies.</h2>
+          <p>The blocks below focus on proxy buyer criteria: clean IP pools, rotation control, predictable bandwidth, uptime, and support.</p>
+        </div>
+        <div class="use-grid">
+          <article class="use-card">
+            <div class="icon">C</div>
+            <h3>Clean IP sourcing</h3>
+            <p>Position the network around consent-based residential IPs, clear policies, and transparent proxy usage.</p>
+          </article>
+          <article class="use-card">
+            <div class="icon">R</div>
+            <h3>Rotation that adapts</h3>
+            <p>Session logic can change by country, city, ASN, rotation interval, sticky duration, and workload priority.</p>
+          </article>
+          <article class="use-card">
+            <div class="icon">B</div>
+            <h3>Budget controls</h3>
+            <p>Hard caps, alerts, and bandwidth reports keep teams from discovering traffic spikes too late.</p>
+          </article>
+          <article class="use-card">
+            <div class="icon">S</div>
+            <h3>Support with context</h3>
+            <p>Give prospects confidence that ops can diagnose connection, routing, and IP pool issues quickly.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="pricing" id="pricing">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Proxy pricing that scales with bandwidth.</h2>
+          <p>Three direct proxy plans, visible traffic packages, and one enterprise CTA keep buying simple.</p>
+        </div>
+        <div class="price-grid">
+          <article class="price-card">
+            <h3>Starter</h3>
+            <p>For testing residential and datacenter proxy access on small workloads.</p>
+            <div class="price">$49 <small>/mo</small></div>
+            <div class="bullets">
+              <span><i class="dot"></i>5 GB traffic included</span>
+              <span><i class="dot"></i>Residential and datacenter access</span>
+              <span><i class="dot"></i>Email support</span>
+            </div>
+            <a class="btn btn-light" href="#contact">Start starter</a>
+          </article>
+          <article class="price-card focus">
+            <h3>Growth</h3>
+            <p>For production teams that need larger traffic packages, sticky sessions, and active monitoring.</p>
+            <div class="price">$299 <small>/mo</small></div>
+            <div class="bullets">
+              <span><i class="dot"></i>50 GB traffic included</span>
+              <span><i class="dot"></i>City targeting and sticky sessions</span>
+              <span><i class="dot"></i>Priority support and alerts</span>
+            </div>
+            <a class="btn btn-dark" href="#contact">Choose growth</a>
+          </article>
+          <article class="price-card">
+            <h3>Enterprise</h3>
+            <p>For large-scale proxy users with custom pools, dedicated routing, and compliance needs.</p>
+            <div class="price">Custom</div>
+            <div class="bullets">
+              <span><i class="dot"></i>Dedicated pools and SLAs</span>
+              <span><i class="dot"></i>Custom target playbooks</span>
+              <span><i class="dot"></i>Solutions engineer support</span>
+            </div>
+            <a class="btn btn-light" href="#contact">Talk to sales</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="coverage">
+      <div class="wrap coverage">
+        <div>
+          <div class="section-head">
+            <h2>Global coverage with local control.</h2>
+          </div>
+          <p style="color: var(--muted); line-height: 1.7; margin-top: -18px;">A compact coverage block gives buyers the reassurance they expect from a proxy provider while leaving room for real network data later.</p>
+          <div class="country-list" aria-label="Highlighted countries">
+            <span>United States</span>
+            <span>United Kingdom</span>
+            <span>Germany</span>
+            <span>Brazil</span>
+            <span>Japan</span>
+            <span>Australia</span>
+          </div>
+        </div>
+        <div class="map" aria-label="Coverage map">
+          <span class="pin"></span>
+          <span class="pin"></span>
+          <span class="pin"></span>
+          <span class="pin"></span>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Questions proxy buyers ask before they switch.</h2>
+          <p>FAQ copy is written for practical objections: IP sourcing, migration, protocols, performance, and bandwidth predictability.</p>
+        </div>
+        <div class="faq-list">
+          <details open>
+            <summary>Can we migrate from another proxy provider gradually?</summary>
+            <p>Yes. Route a subset of traffic through 2extract first, compare speed, stability, IP quality, and bandwidth cost, then expand by project or market.</p>
+          </details>
+          <details>
+            <summary>Do residential sessions support sticky IPs?</summary>
+            <p>The mockup positions sticky sessions as a core proxy feature, with configurable duration by country, city, ASN, and workload type.</p>
+          </details>
+          <details>
+            <summary>How does 2extract help control proxy costs?</summary>
+            <p>The design highlights bandwidth caps, usage alerts, traffic reports, and plan limits so prospects see control before they see the invoice.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section class="final-cta" id="contact">
+      <div class="wrap cta-row">
+        <div>
+          <h2>Launch your proxy setup on cleaner infrastructure.</h2>
+          <p>Use this section for the primary sales handoff: trial creation, calendar booking, or a short proxy requirements form.</p>
+        </div>
+        <a class="btn btn-primary" href="mailto:sales@2extract.com">Contact sales</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer-row">
+      <span>2extract landing mockup</span>
+      <nav aria-label="Footer navigation">
+        <a href="#products">Products</a>
+        <a href="#developers">Developers</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#coverage">Coverage</a>
+      </nav>
+    </div>
+  </footer>
+</body>
+</html>
