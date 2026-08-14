@@ -80,3 +80,37 @@ astro-island,astro-slot,astro-static-slot{display:contents}
 .nav-dropdown-icon-svg{width:16px;height:16px}
 .nav-dropdown-label{font-size:14px;font-weight:500;white-space:nowrap}
 .nav-chevron-rotate{transform:rotate(180deg)}
+
+/* Routing-live animation (2extract) */
+.route-anim{position:relative;display:flex;align-items:center;width:64px}
+.route-node-start{width:6px;height:6px;border-radius:999px;background:var(--secondary);flex-shrink:0}
+.route-line{position:relative;display:block;height:2px;background:var(--border);flex:1;margin:0 6px;overflow:hidden;border-radius:999px}
+.route-pulse{position:absolute;top:-3px;left:0;width:8px;height:8px;border-radius:999px;background:var(--secondary);box-shadow:0 0 6px var(--secondary);animation:route-travel 2.2s ease-in-out infinite}
+.route-node-end{flex-shrink:0}
+#routing-city{display:inline-block;transition:opacity .25s ease}
+@keyframes route-travel{
+  0%{left:0;opacity:0}
+  8%{opacity:1}
+  92%{opacity:1}
+  100%{left:100%;opacity:0}
+}
+@media (prefers-reduced-motion: reduce){
+  .route-pulse{animation:none;opacity:1;left:50%}
+}
+
+/* Enlarged routing-live card animation (2extract) */
+.route-line-full{position:relative;height:2px;width:100%;background:var(--border);border-radius:999px;overflow:visible}
+.route-pulse-full{position:absolute;top:-4px;left:0;width:10px;height:10px;border-radius:999px;background:var(--secondary);box-shadow:0 0 8px var(--secondary),0 0 16px var(--secondary);animation:route-travel-full 2.4s ease-in-out infinite}
+@keyframes route-travel-full{
+  0%{left:0;opacity:0}
+  8%{opacity:1}
+  92%{opacity:1}
+  100%{left:calc(100% - 10px);opacity:0}
+}
+.route-dot-pulse{animation:route-dot-blink 1.6s ease-in-out infinite}
+@keyframes route-dot-blink{0%,100%{opacity:1}50%{opacity:.35}}
+#routing-next-cities{transition:opacity .25s ease}
+@media (prefers-reduced-motion: reduce){
+  .route-pulse-full{animation:none;opacity:1;left:calc(50% - 5px)}
+  .route-dot-pulse{animation:none}
+}

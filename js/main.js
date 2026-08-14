@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initMobileAccordions();
   initDesktopDropdowns();
   initCountrySearch();
+  initRoutingCityCycle();
 });
 
 function initMobileMenu() {
@@ -117,6 +118,46 @@ function initDesktopDropdowns() {
     );
     if (!insideAny) closeAll();
   });
+}
+
+function initRoutingCityCycle() {
+  const cityEl = document.getElementById('routing-city');
+  if (!cityEl) return;
+
+  const latencyEl = document.getElementById('routing-latency');
+  const nextEl = document.getElementById('routing-next-cities');
+
+  const cities = [
+    'Kabul', 'Kandahar', 'Herat', 'Mazar-i-Sharif', 'Kunduz',
+    'Jalalabad', 'Lashkar Gah', 'Taloqan', 'Pul-e-Khumri', 'Khost'
+  ];
+  let index = 0;
+
+  const renderNext = () => {
+    if (!nextEl) return;
+    const upcoming = [1, 2, 3, 4].map((offset) => cities[(index + offset) % cities.length]);
+    nextEl.textContent = upcoming.join('  >  ');
+  };
+
+  renderNext();
+
+  setInterval(() => {
+    index = (index + 1) % cities.length;
+    cityEl.style.opacity = '0';
+    if (latencyEl) latencyEl.style.opacity = '0';
+    if (nextEl) nextEl.style.opacity = '0';
+
+    setTimeout(() => {
+      cityEl.textContent = cities[index];
+      cityEl.style.opacity = '1';
+      if (latencyEl) {
+        latencyEl.textContent = `${28 + Math.floor(Math.random() * 60)} ms`;
+        latencyEl.style.opacity = '1';
+      }
+      renderNext();
+      if (nextEl) nextEl.style.opacity = '1';
+    }, 250);
+  }, 2400);
 }
 
 function initCountrySearch() {
