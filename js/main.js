@@ -126,11 +126,15 @@ function initRoutingCityCycle() {
 
   const latencyEl = document.getElementById('routing-latency');
   const nextEl = document.getElementById('routing-next-cities');
+  const citiesRoot = document.querySelector('[data-routing-cities]');
 
-  const cities = [
+  const fallbackCities = [
     'Kabul', 'Kandahar', 'Herat', 'Mazar-i-Sharif', 'Kunduz',
     'Jalalabad', 'Lashkar Gah', 'Taloqan', 'Pul-e-Khumri', 'Khost'
   ];
+  const cities = citiesRoot && citiesRoot.dataset.routingCities
+    ? citiesRoot.dataset.routingCities.split(',').map((c) => c.trim()).filter(Boolean)
+    : fallbackCities;
   let index = 0;
 
   const renderNext = () => {
